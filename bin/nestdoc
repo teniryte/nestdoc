@@ -1,4 +1,16 @@
 #!/usr/bin/env node
 'use strict';
 
-console.log('NestDoc');
+const parseOptions = require('parse-options');
+
+const options = parseOptions(
+  // Example pattern.
+  // Contains two commands (command="copy", file="test.txt")
+  // and three parameters (boolean minimize=true, number limit=5
+  // and string exclude="node_modules")
+  `root $output|o`,
+  process.argv,
+  {
+    root: process.env,
+  }
+);
