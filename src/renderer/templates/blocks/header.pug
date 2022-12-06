@@ -1,0 +1,10 @@
+mixin header(icon, title, subtitle, type)
+  .header
+    .icon
+      +icon(icon)
+    .details
+      .title
+        if type
+          span= type
+        strong= title
+      .subtitle= subtitle

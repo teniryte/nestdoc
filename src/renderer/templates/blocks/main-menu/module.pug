@@ -1,0 +1,19 @@
+mixin mainMenuModule(module)
+  .main-menu-module
+    a(href=base + "/modules/" + module.linkId + ".html", data-type="module").main-menu-module__name
+      +icon('fa-solid fa-box-open')
+      strong #{module.name}
+    if module.services.length
+      +mainMenuSection('fa-sharp fa-solid fa-person-digging', 'Services', module.services, 'service', 'services', module)
+    if module.controllers.length
+      +mainMenuSection('fa-solid fa-link', 'Controllers', module.controllers, 'controller', 'controllers', module)
+    if module.entities.length
+      +mainMenuSection('fa-solid fa-database', 'Entities', module.entities, 'entity', 'entities', module)
+    if module.dto.length
+      +mainMenuSection('fa-solid fa-server', 'DTO\'s', module.dto, 'dto', 'dto', module)
+    if module.types.length
+      +mainMenuSection('fa-solid fa-folder-tree', 'Types', module.types, 'type', 'types', module)
+    if module.guards.length
+      +mainMenuSection('fa-solid fa-shield-halved', 'Guards', module.guards, 'guard', 'guards', module)
+    if module.middlewares.length
+      +mainMenuSection('fa-solid fa-spider', 'Middlewares', module.middlewares, 'middleware', 'middlewares', module)

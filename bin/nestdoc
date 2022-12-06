@@ -2,15 +2,46 @@
 'use strict';
 
 const parseOptions = require('parse-options');
+const path = require('path');
+const { Project } = require('../dist/project');
+const chokidar = require('chokidar');
 
 const options = parseOptions(
   // Example pattern.
   // Contains two commands (command="copy", file="test.txt")
   // and three parameters (boolean minimize=true, number limit=5
   // and string exclude="node_modules")
-  `root $output|o`,
+  `root $output|o @watch|w $base|b $logo|l $favicon|fav|f`,
   process.argv,
   {
-    root: process.env,
+    root: val => path.resolve(process.cwd(), val || 'src'),
+    output: val => path.resolve(process.cwd(), val || 'documentation'),
+    watch: val => val,
+    base: val => val || '/',
+    logo: val => val,
+    favicon: val => val,
   }
 );
+
+generate();
+
+if (options.watch) {
+  chokidar
+    .watch(options.root, {
+      ignoreInitial: true,
+    })
+    .on('all', (event, path) => {
+      console.log(`${event}: ${path}. Generating...`);
+      generate();
+    });
+  console.log('Watching for changes...');
+}
+
+function generate() {
+  const project = new Project(options.root, null, options);
+
+  project
+    .generate()
+    .then(() => console.log('Docs generated!'))
+    .catch(err => console.log(err));
+}

@@ -1,0 +1,12 @@
+mixin breadcrumbs(items)
+  if items && items.length
+    .breadcrumbs
+      each item in items
+        if item.url
+          a(href=item.url).breadcrumbs-item
+            +icon(item.icon)
+            span= item.title
+        else
+          div.breadcrumbs-item
+            +icon(item.icon)
+            span= item.title

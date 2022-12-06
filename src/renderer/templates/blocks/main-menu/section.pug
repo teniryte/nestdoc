@@ -1,0 +1,11 @@
+mixin mainMenuSection(icon, title, items, type, section, module)
+  .main-menu-section
+    a(href=base + "/" + section + '/' + module.linkId + '-' + section + '.html', data-type=type).main-menu-section__title
+      +icon(icon)
+      strong= title
+    .main-menu-section__items
+      each item in items
+        .main-menu-section__items__item
+          a(href=base + "/" + section + "/" + item.linkId + '.html').main-menu-section__items__item__title
+            +icon(icon)
+            strong= item.name

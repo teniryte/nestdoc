@@ -1,0 +1,29 @@
+.breadcrumbs
+  background: #ECEFF1;
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  display: flex;
+  color: #546E7A;
+
+  &-item
+    display: block;
+    display: flex;
+    align-items: center;
+
+    span
+      margin-left: 5px;
+
+    &::after
+      content: '/';
+      display: block;
+      color: #90A4AE;
+      position: static;
+      margin-left: 10px;
+      margin-right: 10px;
+
+  div.breadcrumbs-item
+    opacity: 0.5;
+
+    &::after
+      display: none;

@@ -1,0 +1,88 @@
+$menu-margin = 20px;
+
+menuItem()
+  font-weight: 500;
+  display flex
+  align-items: center;
+  margin-bottom: $menu-margin;
+
+  i
+    color: #B0BEC5;
+
+  strong
+    color: #607D8B;
+    margin-left: 5px;
+    font-weight: 500;
+
+  &:hover
+    i, strong
+      color: materialOrange(700) !important;
+
+  // &[data-type="module"]
+  //   i
+  //     color: $clr.menu.icons.module;
+
+  // &[data-type="service"]
+  //   i
+  //     color: $clr.menu.icons.service;
+
+  // &[data-type="controller"]
+  //   i
+  //     color: $clr.menu.icons.controller;
+
+  // &[data-type="entity"]
+  //   i
+  //     color: $clr.menu.icons.entity;
+
+  // &[data-type="dto"]
+  //   i
+  //     color: $clr.menu.icons.dto;
+
+  // &[data-type="type"]
+  //   i
+  //     color: $clr.menu.icons.type;
+
+  // &[data-type="guard"]
+  //   i
+  //     color: $clr.menu.icons.guard;
+
+  // &[data-type="middleware"]
+  //   i
+  //     color: $clr.menu.icons.middleware;
+
+.main-menu
+  width: 400px;
+
+  &-module
+    // background: lighten(materialBlueGrey(50), 95%);
+    background: #fff;
+    padding: 20px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    // border: 1px solid lighten(#CFD8DC, 50%);
+
+    &__name
+      menuItem();
+
+      text-transform: uppercase;
+      font-weight: 700 !important;
+
+  &-section
+    margin-left: $menu-margin;
+    margin-bottom: $menu-margin;
+
+    &__title
+      menuItem();
+
+      font-size: 0.9em;
+
+    &__items
+      margin-left: $menu-margin;
+      border-left: 1px dotted #CFD8DC;
+      padding-left: $menu-margin;
+
+      &__item
+        menuItem();
+
+        font-size: 0.9em;
+        margin-bottom: 10px;
