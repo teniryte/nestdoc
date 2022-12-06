@@ -36,11 +36,12 @@ export class Module extends Linked {
     public parent?: Module,
     public options?: any
   ) {
-    super();
+    super(parent);
     this.name = basename(root);
     this.uid = uniqueId();
     this.filename = this.getFilename();
     this.options = options;
+    this.parent = parent;
   }
 
   getName() {

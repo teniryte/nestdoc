@@ -11,8 +11,6 @@ import { uniqueId } from '../util';
 import { NamedInterface } from '../types/named.interface';
 import { Linked } from '../types/linked';
 
-const parse = require('../../packages/jsdoc-parse');
-
 const parser = new TypescriptParser();
 
 const DECORATOR_REG =
@@ -29,7 +27,7 @@ export class File extends Linked implements NamedInterface {
   uid: number;
 
   constructor(public filename: string, public parent: Module) {
-    super();
+    super(parent);
     this.name = basename(filename, extname(filename)).split('.')[0];
     this.id = this.getId();
     this.source = this.getSource();

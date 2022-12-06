@@ -5,9 +5,10 @@ import { NamedInterface } from './named.interface';
 
 export class Linked implements NamedInterface {
   uid: number;
-  parent: any = null;
+  parent?: any;
 
-  constructor() {
+  constructor(parent) {
+    this.parent = parent;
     this.uid = uniqueId();
   }
 

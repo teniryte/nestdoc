@@ -74,7 +74,7 @@ export class Node extends Linked implements NamedInterface {
   }
 
   constructor(data: any, parent: any) {
-    super();
+    super(parent);
     this.name = data.name;
     this.start = data.start;
     this.end = data.end;

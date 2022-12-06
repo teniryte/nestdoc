@@ -47,7 +47,7 @@ export class Project extends Module {
 
   override toJSON() {
     return {
-      name: this.name,
+      ...super.toJSON(),
       logo: this.logo,
     };
   }
