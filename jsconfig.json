@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "checkJs": false,
+    "jsx": "react",
+    "paths": {
+      "@app/*": ["src/*"],
+      "@admin/*": ["src/components/admin/*"],
+      "@common/*": ["src/components/common/*"],
+      "@dev/*": ["src/components/dev/*"],
+      "@main/*": ["src/components/main/*"],
+      "@auth/*": ["src/components/main/auth/*"],
+      "@profile/*": ["src/components/main/profile/*"],
+      "@ui/*": ["src/components/core-ui/*"],
+      "@store/*": ["src/store/*"],
+      "@util/*": ["src/util/*"]
+    }
+  }
+}

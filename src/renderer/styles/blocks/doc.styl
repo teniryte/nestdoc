@@ -1,0 +1,245 @@
+.doc-info
+  color: #37474F;
+
+  &__description
+    background: #fff;
+    border-radius: 5px;
+    padding: 20px 30px;
+    // border: 1px solid #ECEFF1;
+    border-left: 5px solid #ECEFF1;
+
+.doc-header
+  display: flex;
+  font-size: 1.1em;
+  font-weight: 500;
+  margin-top: 40px;
+  margin-bottom: 30px;
+
+  i
+    color: #B0BEC5;
+
+  strong
+    color: #607D8B;
+    margin-left: 10px;
+
+.doc-property
+  background: lighten(#ECEFF1, 50%);
+  padding: 15px 20px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+
+  &__decorators
+    margin-bottom: 10px;
+    font-size: 0.9em;
+
+  &__header
+    display: flex;
+
+    &__name
+      font-weight: 500;
+      display: flex;
+      font-size: 1.1em;
+
+      &::after
+        content: ':';
+        display: 'block';
+        position: 'static';
+        margin-right: 5px;
+
+  &__description
+    margin-top: 15px;
+    color: #78909C;
+    font-size: 0.9em;
+    background: #fff;
+    border-radius: 4px;
+    padding: 15px;
+
+.doc-method
+  background: lighten(#ECEFF1, 50%);
+  padding: 15px 20px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+
+  &[data-deprecated="deprecated"]
+    opacity: 0.7;
+
+  &-top
+    display: flex;
+    align-items: center;
+
+    &__describe
+      // width: 50%;
+      padding-right: 20px;
+
+    &__return
+      // width: 50%;
+
+  &__header
+    display: flex;
+    font-size: 1.2em;
+    font-weight: 500;
+    align-items: center;
+    margin-bottom: 5px;
+
+    &__deprecated
+      font-size: 0.9em;
+      display: flex;
+      margin-right: 10px;
+      opacity: 0.5;
+
+      i
+        color: #FF3D00;
+        margin-right: 5px;
+
+    &__name
+      // color: #0277BD;
+
+    &__async
+      color: #607D8B;
+      margin-right: 10px;
+
+    &__args
+
+      &__opening
+        margin-left: 10px;
+
+  &__args
+    margin-left: 20px;
+
+    &__arg
+      margin-bottom: 10px;
+
+      &:last-of-type
+        margin-bottom: 0 !important;
+
+      section
+        display: flex;
+        margin-bottom: 5px;
+        align-items: center;
+
+        .doc-method__args__arg__name
+          font-weight: 500;
+
+          &::after
+            content: ':';
+            margin-right: 5px;
+            display: inline-block;
+            position: relative;
+      &__type
+        // opacity: 0.7;
+        font-size: 0.9em;
+
+      &__description
+        font-size: 0.9em;
+        color: #78909C;
+
+  &__return
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+
+    &>section
+      &:first-of-type
+        font-size: 1.2em;
+        margin-right: 15px;
+        color: #EF6C00;
+        font-weight: 500;
+
+    strong, em
+      font-weight: 500;
+      font-style: normal;
+
+  &__decorators
+    margin-bottom: 5px;
+
+    &__decorator
+      font-size: 0.9em;
+      color: #546E7A;
+      font-weight: 500;
+
+  &__description
+    margin-top: 15px;
+    color: #78909C;
+    font-size: 0.9em;
+    // border-left: 3px solid #B0BEC5;
+    // padding-left: 20px;
+    background: #fff;
+    border-radius: 4px;
+    padding: 15px;
+
+.doc-summary
+
+  &__container
+    display: flex;
+    flex-wrap: wrap;
+
+    &__section
+      width: 50%;
+      padding-right: 20px;
+
+
+      header
+        font-weight: 500;
+        margin-bottom: 30px;
+
+      section
+        display: flex;
+        flex-wrap: wrap;
+
+      &__item
+        background: lighten(#ECEFF1, 50%);
+        color: #455A64;
+        border-radius: 5px;
+        padding: 10px 15px;
+        display: block;
+        margin-bottom: 10px;
+        margin-right: 10px;
+        font-weight: 500;
+        font-size: 0.9em;
+
+        &:hover
+          background: lighten(#ECEFF1, 25%);
+
+.doc-example
+  margin-top: 15px;
+  color: #78909C;
+  font-size: 0.9em;
+  // border-left: 3px solid #B0BEC5;
+  // padding-left: 20px;
+  background: #fff;
+  border-radius: 4px;
+  padding: 15px;
+
+.doc-throws
+  margin-top: 15px;
+  color: #78909C;
+  font-size: 0.9em;
+  // border-left: 3px solid #B0BEC5;
+  // padding-left: 20px;
+  background: #fff;
+  border-radius: 4px;
+  padding: 15px;
+
+  &__item
+    background: lighten(#ECEFF1, 50%);
+    color: #455A64;
+    border-radius: 5px;
+    padding: 10px 15px;
+    display: block;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    font-weight: 500;
+    font-size: 0.9em;
+
+    &:hover
+      background: lighten(#ECEFF1, 25%);
+
+
+.doc-method-section-header
+  font-size: 1.1em;
+  margin-bottom: 15px;
+  font-weight: 500;
+
+a
+  color: #0277BD !important;
+  font-weight: 500 !important;

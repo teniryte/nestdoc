@@ -1,6 +1,6 @@
 {
   "name": "nestdoc",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -18,9 +18,13 @@
   "homepage": "https://github.com/teniryte/nestdoc",
   "license": "MIT",
   "dependencies": {
+    "@babel/parser": "^7.20.5",
+    "@types/fs-extra": "^9.0.13",
     "@types/node": "^18.11.10",
     "@types/pug": "^2.0.6",
+    "@typescript-eslint/parser": "^5.45.1",
     "chokidar": "^3.5.3",
+    "fs-extra": "^11.1.0",
     "jsdoc": "^4.0.0",
     "jsdoc-parse": "^6.2.0",
     "lodash": "^4.17.21",

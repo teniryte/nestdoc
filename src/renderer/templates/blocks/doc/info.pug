@@ -1,0 +1,10 @@
+mixin docInfo(data)
+  .doc-info
+    if data.comment.description
+      .doc-info__description= data.comment.description
+    +docSummary(data)
+    if data.properties && data.properties.length
+      +docProperties(data.properties)
+    if data.methods && data.methods.length
+      +docMethods(data)
+    pre(style="margin-top: 600px")= JSON.stringify(data, null, 2)

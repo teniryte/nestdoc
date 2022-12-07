@@ -13,4 +13,12 @@ export class PropertyNode extends Node {
     this.isOptional = data.isOptional;
     this.isStatic = data.isStatic;
   }
+
+  toJSON() {
+    return {
+      ...super.toJSON(),
+      comment: this.comment?.toJSON() || {},
+      decorators: this.decorators,
+    };
+  }
 }

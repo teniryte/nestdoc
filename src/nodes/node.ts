@@ -90,6 +90,17 @@ export class Node extends Linked implements NamedInterface {
     this.uid = uniqueId();
   }
 
+  toJSON() {
+    return {
+      name: this.name,
+      start: this.start,
+      end: this.end,
+      type: this.type,
+      generic: this.generic,
+      id: this.getId(),
+    };
+  }
+
   getName(): string {
     return this.name;
   }

@@ -8,10 +8,7 @@ export class ServiceFile extends File {
 
   toJSON() {
     return {
-      name: this.getName(),
-      id: this.id,
-      filename: this.filename,
-      linkId: this.linkId,
+      ...super.toJSON(),
     };
   }
 }

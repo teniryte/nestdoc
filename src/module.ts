@@ -190,4 +190,17 @@ export class Module extends Linked {
       linkId: this.linkId,
     };
   }
+
+  getNodeLink(val) {
+    const id = this.file.getImportPath(val);
+    if (!id) return '';
+    try {
+      const moduleName = id.split('/')[1];
+      const type = id.split('/')[2];
+      const name = id.split(':').pop();
+      return `/${type}/${moduleName}-${name}.html`;
+    } catch (err) {
+      return '';
+    }
+  }
 }

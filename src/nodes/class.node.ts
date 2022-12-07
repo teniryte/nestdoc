@@ -20,4 +20,21 @@ export class ClassNode extends VariableNode {
 
     this.accessors = data.accessors;
   }
+
+  toJSON() {
+    // if (this.name === 'AdminService') {
+    //   console.log('CLASS', this);
+    // }
+    const comment = this.comment?.data || {};
+    return {
+      ...super.toJSON(),
+      uid: this.uid,
+      name: this.name,
+      comment,
+      decorators: this.decorators.map(dec => dec.toJSON()),
+      constr: this.constr?.toJSON(),
+      properties: this.properties.map(property => property.toJSON()),
+      methods: this.methods.map(method => method.toJSON()),
+    };
+  }
 }

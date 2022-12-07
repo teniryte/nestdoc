@@ -1,0 +1,31 @@
+.tabs
+  display: flex;
+  margin-top: 30px;
+
+  .tab
+    display: flex;
+    font-size: 1em;
+    // background: lighten(#ECEFF1, 80%);
+    padding: 15px 20px;
+    margin-right: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover
+      background: lighten(#ECEFF1, 80%);
+
+    &[data-active="active"]
+      background: #ECEFF1;
+
+    i
+      color: #B0BEC5;
+
+    strong
+      color: #546E7A;
+      margin-left: 10px;
+
+.tabs-container
+
+  .tab-content
+    display: none;
+    margin-top: 30px;

@@ -14,6 +14,10 @@ export class Comment {
     this.data = this.parse();
   }
 
+  toJSON() {
+    return this.data;
+  }
+
   parse(): any {
     const data = {};
     let str = this.source

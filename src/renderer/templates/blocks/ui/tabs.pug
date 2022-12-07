@@ -1,0 +1,8 @@
+mixin tabs(name, items, active)
+  .tabs(data-name=name)
+    each item in items
+      .tab(data-value=item.value, data-active=(active === item.value ? 'active' : ''))
+        if item.icon
+          i
+            +icon(item.icon)
+        strong= item.title

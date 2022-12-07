@@ -10,11 +10,11 @@ import { Decorator } from '../decorator';
 import { uniqueId } from '../util';
 import { NamedInterface } from '../types/named.interface';
 import { Linked } from '../types/linked';
+import * as babelParser from '@babel/parser';
 
 const parser = new TypescriptParser();
 
-const DECORATOR_REG =
-  /\@([a-zA-Z0-9]+?)\(([a-zA-Z0-9,\{\}\.\[\]\=\>\(\)\:\'\"\s]*?)\)/gim;
+const DECORATOR_REG = /^\s*\@([a-zA-Z0-9\_\$]+)\(([^\)]*?)\)/gim;
 const IMPORT_REG = /import\s+([\s\S]+?)from\s+\'(.+)\'\;?$/gim;
 
 export class File extends Linked implements NamedInterface {
@@ -25,12 +25,14 @@ export class File extends Linked implements NamedInterface {
   id: string;
   source: string;
   uid: number;
+  originalSource: string;
 
   constructor(public filename: string, public parent: Module) {
     super(parent);
     this.name = basename(filename, extname(filename)).split('.')[0];
     this.id = this.getId();
     this.source = this.getSource();
+    this.originalSource = this.source;
     this.imports = this.getImports();
     this.uid = uniqueId();
   }
@@ -83,8 +85,7 @@ export class File extends Linked implements NamedInterface {
       }
       let path = results[2];
       if (path.startsWith('.')) {
-        path =
-          '@app/' + relative(this.getRoot().root, this.parent.resolve(path));
+        path = '@app/' + relative(this.getRoot().root, this.resolve(path));
       }
       const item = {
         vars: vars,
@@ -95,6 +96,10 @@ export class File extends Linked implements NamedInterface {
       imports.push(item);
     }
     return imports;
+  }
+
+  resolve(...paths) {
+    return resolve(dirname(this.filename), ...paths);
   }
 
   getImportPath(name: string): string {
@@ -131,29 +136,42 @@ export class File extends Linked implements NamedInterface {
   }
 
   async getDeclarations(): Promise<any> {
-    const source = this.source.replace(DECORATOR_REG, (...args) => {
-      return '/*' + args[0].slice(2, -2) + '*/';
-    });
+    const source = this.source;
     const build = await parser.parseSource(source);
     return build.declarations;
   }
 
   async getDecorators(): Promise<any> {
-    const reg = DECORATOR_REG;
-    let results;
-    const decorators: any = [];
+    const decorators = [];
+    let source = removeComments(this.source);
 
-    while ((results = reg.exec(this.source)) !== null) {
-      const item = {
-        name: results[1],
-        args: results[2],
-        start: results.index,
-        end: reg.lastIndex,
-        type: 'decorator',
-      };
-      decorators.push(new Decorator(item, this));
-      // console.log('ITEM', item);
+    if (this.filename.endsWith('.module.ts')) {
+      return [];
     }
+
+    const extractNextDecorator = () => {
+      source.replace(/\@([a-zA-Z0-9_\$]+)\(/gim, (txt, name, position) => {
+        const closing =
+          findClosingBracketMatchIndex(source, position + 1 + name.length) + 1;
+        const val = source.slice(position, closing);
+        const item = {
+          name: name,
+          args: source.slice(position + 2 + name.length, closing - 1),
+          start: position - 1,
+          end: closing,
+          type: 'decorator',
+        };
+        decorators.push(new Decorator(item, this));
+        source = source.replace(val, '/*' + val.slice(2, -2) + '*/');
+        return txt;
+      });
+    };
+
+    while (/\@([a-zA-Z0-9_\$]+)\(/gim.test(source)) {
+      extractNextDecorator();
+    }
+
+    this.source = source;
 
     return decorators;
   }
@@ -166,16 +184,19 @@ export class File extends Linked implements NamedInterface {
       declarations.find(
         declaration => declaration instanceof ClassDeclaration
       ) || {};
-    const children = [
+
+    let children = [
       ...comments,
       ...declarations,
       ...(Class.properties || []),
       ...(Class.methods || []),
       Class.ctor,
       ...decorators,
-    ]
+    ];
+    children = children
       .filter(val => !!val)
       .sort((a, b) => (a.start > b.start ? 1 : -1));
+
     let decs: any = [];
     children.forEach((item, i) => {
       if (item.type === 'decorator') {
@@ -191,14 +212,15 @@ export class File extends Linked implements NamedInterface {
         comment = item;
         return;
       }
-      item.comment = comment || null;
-      comment = null;
+      if (comment && !(item instanceof Decorator)) {
+        item.comment = comment || null;
+        comment = null;
+      }
     });
 
     this.children = declarations
       .map(declaration => Node.createNode(declaration, this))
       .filter(child => !!child);
-    // console.log('FILE', inspect(this.children, { depth: 100 }));
   }
 
   getRoot() {
@@ -218,11 +240,69 @@ export class File extends Linked implements NamedInterface {
   }
 
   toJSON() {
+    const main =
+      this.children.find(child => child.nodeType === 'class') || null;
     return {
       name: this.getName(),
       id: this.id,
       filename: this.filename,
       linkId: this.linkId,
+      main: main?.toJSON(),
+      source: this.originalSource,
     };
   }
+
+  getNodeLink(val) {
+    const id = this.getImportPath(val);
+    if (!id) return '';
+    try {
+      const moduleName = id.split('/')[1];
+      const name = id.split(':').pop();
+      const type = id.split(':')[0].split('.').pop();
+      const sectionType = {
+        service: 'services',
+        controller: 'controllers',
+        entity: 'entities',
+        dto: 'dto',
+        type: 'types',
+        guard: 'guards',
+        middleware: 'middlewares',
+        interface: 'types',
+      };
+      const t = sectionType[type];
+      if (!moduleName || !name || !t) return '';
+      return `/${t}/${moduleName}-${name}.html`;
+    } catch (err) {
+      return '';
+    }
+  }
+}
+
+function removeComments(string) {
+  //Takes a string of code, not an actual function.
+  return string
+    .replace(/\/\*([\s\S]*?)\*\/|\/\/.*/g, txt => {
+      return txt.replace(/\@/gim, 'D');
+    })
+    .trim(); //Strip comments
+}
+
+function findClosingBracketMatchIndex(str, pos) {
+  if (str[pos] != '(') {
+    throw new Error("No '(' at index " + pos);
+  }
+  let depth = 1;
+  for (let i = pos + 1; i < str.length; i++) {
+    switch (str[i]) {
+      case '(':
+        depth++;
+        break;
+      case ')':
+        if (--depth == 0) {
+          return i;
+        }
+        break;
+    }
+  }
+  return -1; // No matching closing parenthesis
 }

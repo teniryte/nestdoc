@@ -6,4 +6,11 @@ export class ParameterNode extends Node {
   getPath(): string {
     return this.name;
   }
+
+  toJSON() {
+    return {
+      ...super.toJSON(),
+      comment: this.comment?.toJSON() || {},
+    };
+  }
 }

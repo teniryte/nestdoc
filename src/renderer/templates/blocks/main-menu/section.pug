@@ -1,11 +1,13 @@
 mixin mainMenuSection(icon, title, items, type, section, module)
-  .main-menu-section
+  .main-menu-section(data-name=section)
     a(href=base + "/" + section + '/' + module.linkId + '-' + section + '.html', data-type=type).main-menu-section__title
       +icon(icon)
       strong= title
+      em= items.length
     .main-menu-section__items
       each item in items
-        .main-menu-section__items__item
+        .main-menu-section__items__item(data-name=item.name)
           a(href=base + "/" + section + "/" + item.linkId + '.html').main-menu-section__items__item__title
             +icon(icon)
             strong= item.name
+

@@ -1,0 +1,14 @@
+mixin docSummary(data)
+  .doc-summary
+    +docHeader('fa-solid fa-folder-tree', 'Index')
+    .doc-summary__container
+      .doc-summary__container__section
+        header Properties
+        section
+          each item in data.properties
+            a(href='#' + item.name).doc-summary__container__section__item= item.name
+      .doc-summary__container__section
+        header Methods
+        section
+          each item in data.methods
+            a(href='#' + item.name).doc-summary__container__section__item= item.name

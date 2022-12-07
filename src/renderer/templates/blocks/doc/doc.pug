@@ -1,0 +1,10 @@
+mixin doc(data)
+  .doc
+    +tabs('doc-tabs', [{title: 'Info', icon: 'fa-solid fa-circle-info', value: 'info'}, {title: 'Source', icon: 'fa-solid fa-code', value: 'source'}], 'info')
+
+    .tabs-container(data-name="doc-tabs")
+      .tab-content(data-value="info")
+        +docInfo(data.main)
+      .tab-content(data-value="source")
+        +code(data.source)
+

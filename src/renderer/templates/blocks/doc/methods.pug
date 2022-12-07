@@ -1,0 +1,83 @@
+mixin docMethod(item, data)
+  a(name=item.name)
+  .doc-method(data-deprecated=item.comment.deprecated ? 'deprecated' : '')
+    if item.decorators && item.decorators.length
+      .doc-method__decorators
+        each dec in item.decorators
+          .doc-method__decorators__decorator
+            strong= dec.name
+            span (
+              each val in dec.args.split(',')
+                if parent.getNodeLink(val)
+                  a(href=base + parent.getNodeLink(val))= val
+                else
+                  strong= val
+            span )
+    .doc-method-top
+      .doc-method-top__describe
+        .doc-method__header
+          if item.comment.deprecated
+            .doc-method__header__deprecated
+              i
+                +icon('fa-solid fa-triangle-exclamation')
+              span Deprecated
+          if item.isAsync
+            .doc-method__header__async async
+          .doc-method__header__name= item.name === data.name ? 'constructor' : item.name
+          if item.args.length
+            .doc-method__header__args__opening (
+          else
+            .doc-method__header__args__opening ()
+        if item.args.length
+          .doc-method__args
+            each arg in item.args
+              .doc-method__args__arg
+                .doc-method__args__arg__description= arg.description
+                section
+                  .doc-method__args__arg__name= arg.name
+                  .doc-method__args__arg__type
+                    strong
+                      if parent.getNodeLink(arg.type)
+                        a(href=base + parent.getNodeLink(arg.type))= arg.type
+                      else
+                        strong= arg.type
+                    if arg.generic
+                      if parent.getNodeLink(arg.generic)
+                        a(href= base + parent.getNodeLink(arg.generic))= '<' + arg.generic + '>'
+                      else
+                        span= '<' + arg.generic + '>'
+        if item.args.length
+          .doc-method__closing )
+        if item.comment.returns || item.type
+          .doc-method__return
+            section =>
+            section
+              if item.comment.returns
+                .doc-method__return__description= item.comment.returns
+              if item.type
+                .doc-method__return__type
+                  strong
+                    if parent.getNodeLink(item.type)
+                      a(href=base + parent.getNodeLink(item.type))= item.type
+                    else
+                      strong= item.type
+                  if item.generic
+                    if parent.getNodeLink(item.generic)
+                      a(href= base + parent.getNodeLink(item.generic))= '<' + item.generic + '>'
+                    else
+                      span= '<' + item.generic + '>'
+    if item.comment.description
+      .doc-method__description= item.comment.description
+    if item.comment.example
+      +docExample(item.comment.example)
+    if item.comment.throws
+      +docThrows(item)
+
+
+mixin docMethods(data)
+  .doc-methods
+    +docHeader('fa-solid fa-bell-concierge', 'Methods')
+    if data.constr
+      +docMethod(data.constr, data)
+    each item in data.methods
+      +docMethod(item, data)

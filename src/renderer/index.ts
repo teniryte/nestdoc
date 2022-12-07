@@ -5,6 +5,7 @@ import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import * as rimraf from 'rimraf';
 import * as webpack from 'webpack';
 import { createConfig } from './webpack';
+import { copySync } from 'fs-extra';
 
 export const render = async project => {
   const OUTPUT_DIR = project.output;
@@ -24,12 +25,17 @@ export const render = async project => {
   const TYPES_DIR = resolve(HTML_DIR, 'types');
   const GUARDS_DIR = resolve(HTML_DIR, 'guards');
   const MIDDLEWARES_DIR = resolve(HTML_DIR, 'middlewares');
+  const LIB_DIR = resolve(__dirname, '../../src/renderer/templates/lib');
+  const OUTPUT_LIB_DIR = resolve(project.output, 'lib');
 
   const CONTEXT = {
     menu: project.getMenu(),
     base: project.options.base,
     logo: project.logo,
     project,
+    formatDecoratorArgs(val) {
+      return val.replace(/«/gim, '(').replace(/»/gim, ')');
+    },
   };
 
   await clearFiles();
@@ -76,6 +82,7 @@ export const render = async project => {
           ...START_BREADCRUMBS,
           { title: data.name, icon: 'fa-solid fa-box-open' },
         ],
+        parent: module,
       },
       module.linkId
     );
@@ -93,6 +100,7 @@ export const render = async project => {
           },
           { title: 'Services', icon: 'fa-sharp fa-solid fa-person-digging' },
         ],
+        parent: module,
       },
       module.linkId + '-services'
     );
@@ -110,6 +118,7 @@ export const render = async project => {
           },
           { title: 'Controllers', icon: 'fa-solid fa-link' },
         ],
+        parent: module,
       },
       module.linkId + '-controllers'
     );
@@ -127,6 +136,7 @@ export const render = async project => {
           },
           { title: 'Entities', icon: 'fa-solid fa-database' },
         ],
+        parent: module,
       },
       module.linkId + '-entities'
     );
@@ -144,6 +154,7 @@ export const render = async project => {
           },
           { title: "DTO's", icon: 'fa-solid fa-server' },
         ],
+        parent: module,
       },
       module.linkId + '-dto'
     );
@@ -161,6 +172,7 @@ export const render = async project => {
           },
           { title: 'Types', icon: 'fa-solid fa-folder-tree' },
         ],
+        parent: module,
       },
       module.linkId + '-types'
     );
@@ -178,6 +190,7 @@ export const render = async project => {
           },
           { title: 'Guards', icon: 'fa-solid fa-shield-halved' },
         ],
+        parent: module,
       },
       module.linkId + '-guards'
     );
@@ -195,6 +208,7 @@ export const render = async project => {
           },
           { title: 'Middlewares', icon: 'fa-solid fa-spider' },
         ],
+        parent: module,
       },
       module.linkId + '-middlewares'
     );
@@ -223,6 +237,7 @@ export const render = async project => {
             },
             { title: data.name, icon: 'fa-sharp fa-solid fa-person-digging' },
           ],
+          parent: service,
         },
         service.linkId
       );
@@ -252,6 +267,7 @@ export const render = async project => {
             },
             { title: data.name, icon: 'fa-solid fa-link' },
           ],
+          parent: controller,
         },
         controller.linkId
       );
@@ -281,6 +297,7 @@ export const render = async project => {
             },
             { title: data.name, icon: 'fa-solid fa-database' },
           ],
+          parent: entity,
         },
         entity.linkId
       );
@@ -306,6 +323,7 @@ export const render = async project => {
             },
             { title: data.name, icon: 'fa-solid fa-server' },
           ],
+          parent: dto,
         },
         dto.linkId
       );
@@ -332,6 +350,7 @@ export const render = async project => {
             },
             { title: data.name, icon: 'fa-solid fa-folder-tree' },
           ],
+          parent: type,
         },
         type.linkId
       );
@@ -358,6 +377,7 @@ export const render = async project => {
             },
             { title: data.name, icon: 'fa-solid fa-shield-halved' },
           ],
+          parent: guard,
         },
         guard.linkId
       );
@@ -387,6 +407,7 @@ export const render = async project => {
             },
             { title: data.name, icon: 'fa-solid fa-spider' },
           ],
+          parent: middleware,
         },
         middleware.linkId
       );
@@ -439,6 +460,7 @@ export const render = async project => {
       TYPES_DIR,
       GUARDS_DIR,
       MIDDLEWARES_DIR,
+      OUTPUT_LIB_DIR,
     ].forEach(dir => {
       if (!existsSync(dir)) mkdirSync(dir);
     });

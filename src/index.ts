@@ -14,9 +14,16 @@ export function generate(options) {
 export function watch(options) {
   generate(options);
   chokidar
-    .watch([options.root, resolve(__dirname, '../src')], {
-      ignoreInitial: true,
-    })
+    .watch(
+      [
+        options.root,
+        resolve(__dirname, '../src'),
+        resolve(__dirname, '../dist'),
+      ],
+      {
+        ignoreInitial: true,
+      }
+    )
     .on('all', (event, path) => {
       console.log(`${event}: ${path}. Generating...`);
       generate(options);

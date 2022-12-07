@@ -5,6 +5,7 @@ const parseOptions = require('parse-options');
 const path = require('path');
 const { Project } = require('../dist/project');
 const chokidar = require('chokidar');
+const nestdoc = require('../dist/index');
 
 const options = parseOptions(
   // Example pattern.
@@ -23,25 +24,8 @@ const options = parseOptions(
   }
 );
 
-generate();
-
 if (options.watch) {
-  chokidar
-    .watch(options.root, {
-      ignoreInitial: true,
-    })
-    .on('all', (event, path) => {
-      console.log(`${event}: ${path}. Generating...`);
-      generate();
-    });
-  console.log('Watching for changes...');
-}
-
-function generate() {
-  const project = new Project(options.root, null, options);
-
-  project
-    .generate()
-    .then(() => console.log('Docs generated!'))
-    .catch(err => console.log(err));
+  nestdoc.watch(options);
+} else {
+  nestdoc.generate(options);
 }

@@ -8,6 +8,7 @@ menuItem()
 
   i
     color: #B0BEC5;
+    width: 1.2em;
 
   strong
     color: #607D8B;
@@ -18,40 +19,13 @@ menuItem()
     i, strong
       color: materialOrange(700) !important;
 
-  // &[data-type="module"]
-  //   i
-  //     color: $clr.menu.icons.module;
-
-  // &[data-type="service"]
-  //   i
-  //     color: $clr.menu.icons.service;
-
-  // &[data-type="controller"]
-  //   i
-  //     color: $clr.menu.icons.controller;
-
-  // &[data-type="entity"]
-  //   i
-  //     color: $clr.menu.icons.entity;
-
-  // &[data-type="dto"]
-  //   i
-  //     color: $clr.menu.icons.dto;
-
-  // &[data-type="type"]
-  //   i
-  //     color: $clr.menu.icons.type;
-
-  // &[data-type="guard"]
-  //   i
-  //     color: $clr.menu.icons.guard;
-
-  // &[data-type="middleware"]
-  //   i
-  //     color: $clr.menu.icons.middleware;
-
 .main-menu
   width: 400px;
+
+  &[data-filtering="filtering"]
+    .main-menu-section
+      &__items
+        display: block !important;
 
   &-module
     // background: lighten(materialBlueGrey(50), 95%);
@@ -65,7 +39,7 @@ menuItem()
       menuItem();
 
       text-transform: uppercase;
-      font-weight: 700 !important;
+      font-weight: 800 !important;
 
   &-section
     margin-left: $menu-margin;
@@ -76,13 +50,48 @@ menuItem()
 
       font-size: 0.9em;
 
+      em
+        font-style: normal;
+        margin-left: 10px;
+        // opacity: 0.7;
+        color: #B0BEC5;
+
+    &[data-expanded="expanded"]
+      .main-menu-section__items
+        display: block;
+
     &__items
       margin-left: $menu-margin;
       border-left: 1px dotted #CFD8DC;
       padding-left: $menu-margin;
+      display: none;
 
       &__item
         menuItem();
 
         font-size: 0.9em;
         margin-bottom: 10px;
+
+        &[data-active="active"]
+          i, strong
+            color: #F57C00;
+
+  &-search
+    position: relative;
+
+    input
+      font-size: 1.1em;
+      background: #fff;
+      border: none;
+      padding: 15px 20px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      display: block;
+      width: 100%;
+
+    &__icon
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      color: #CFD8DC;
+      font-size: 1.2em;

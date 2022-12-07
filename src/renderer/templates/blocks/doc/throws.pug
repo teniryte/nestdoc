@@ -1,0 +1,6 @@
+mixin docThrows(data)
+  .doc-throws
+    .doc-method-section-header Throws
+    section
+      each item in data.comment.throws
+        .doc-throws__item= item.value

@@ -1,0 +1,37 @@
+mixin docProperty(item)
+  a(name=item.name)
+  .doc-property
+    if item.decorators && item.decorators.length
+      .doc-property__decorators
+        each dec in item.decorators
+          .doc-property__decorators__decorator
+            strong= '@' + dec.name
+            span (
+              each val in dec.args.split(',')
+                - val = formatDecoratorArgs(val)
+                if parent.getNodeLink(val)
+                  a(href=base + parent.getNodeLink(val))= val
+                else
+                  strong= val
+            span )
+    .doc-property__header
+      .doc-property__header__name= item.name
+      .doc-property__header__type
+        strong
+          if parent.getNodeLink(item.type)
+            a(href=base + parent.getNodeLink(item.type))= item.type
+          else
+            strong= item.type
+        if item.generic
+          if parent.getNodeLink(item.generic)
+            a(href= base + parent.getNodeLink(item.generic))= '<' + item.generic + '>'
+          else
+            span= '<' + item.generic + '>'
+    if item.comment.description
+      .doc-property__description= item.comment.description
+
+mixin docProperties(items)
+  .doc-properties
+    +docHeader('fa-solid fa-database', 'Properties')
+    each item in items
+      +docProperty(item)

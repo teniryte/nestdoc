@@ -1,0 +1,5 @@
+mixin docExample(code)
+  .doc-example
+    .doc-method-section-header Example
+    pre(style="width: 100%; white-space: wrap;").line-numbers.code
+      code(class="language-typescript")!= code

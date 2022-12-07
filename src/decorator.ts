@@ -19,4 +19,14 @@ export class Decorator {
   getId() {
     return this.parent.getImportPath(this.name);
   }
+
+  toJSON() {
+    return {
+      name: this.name,
+      args: this.args.replace(/«/gim, '(').replace(/»/gim, ')'),
+      start: this.start,
+      end: this.end,
+      id: this.id,
+    };
+  }
 }
