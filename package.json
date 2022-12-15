@@ -1,6 +1,6 @@
 {
   "name": "nestdoc",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "files": [
@@ -62,7 +62,7 @@
     "registry": "https://registry.npmjs.org"
   },
   "bin": {
-    "nestdoc": "./dist/nestdoc.ts"
+    "nestdoc": "./dist/src/nestdoc.ts"
   },
   "devDependencies": {
     "@types/chai": "^4.3.4",
