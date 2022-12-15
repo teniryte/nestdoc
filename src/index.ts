@@ -2,12 +2,16 @@ import { Project } from './project';
 import * as chokidar from 'chokidar';
 import { resolve } from 'path';
 
-export function generate(options) {
+export function generate(options, cb = () => {}) {
   const project = new Project(options.root, null, options);
 
   project
     .generate()
-    .then(() => console.log('Docs generated!'))
+    .then(() => {
+      console.log('Docs generated!');
+      cb();
+      process.exit(0);
+    })
     .catch(err => console.log(err));
 }
 

@@ -76,7 +76,8 @@ export const render = async project => {
   console.log(colors.dim('Copying images...'));
   await copyImages();
   console.log(colors.blue('Rendering pages...'));
-  renderTemplates();
+  await renderTemplates();
+  process.exit(0);
 
   if (project.options.watch) {
     chokidar
