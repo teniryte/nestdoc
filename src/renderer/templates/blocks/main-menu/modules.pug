@@ -1,0 +1,10 @@
+.main-menu-article
+  .main-menu-article__header
+    a(href=base + '/modules.html')
+      i
+        +icon('fa-solid fa-box-open')
+      strong Modules
+  .main-menu-article__content
+    +mainMenuSearch()
+    each module in menu
+      +mainMenuModule(module)

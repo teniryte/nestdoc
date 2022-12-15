@@ -1,9 +1,9 @@
 mixin mainMenuModule(module)
-  .main-menu-module(data-expanded="false", data-name=module.name)
-    a(href=base + "/modules/" + module.linkId + ".html", data-type="module").main-menu-module__name
+  .main-menu-module(data-name=module.name, data-toggle="module")
+    a(href=base + "/modules/" + module.linkId + ".html", data-type="module", data-toggle-trigger="module").main-menu-module__name
       +icon('fa-solid fa-box-open')
       strong #{module.name}
-    .main-menu-module__items
+    .main-menu-module__items(data-toggle-content="module")
       if module.services.length
         +mainMenuSection('fa-sharp fa-solid fa-person-digging', 'Services', module.services, 'service', 'services', module)
       if module.controllers.length

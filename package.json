@@ -1,6 +1,6 @@
 {
   "name": "nestdoc",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -19,11 +19,16 @@
   "license": "MIT",
   "dependencies": {
     "@babel/parser": "^7.20.5",
+    "@jest/globals": "^29.3.1",
+    "@types/colors": "^1.2.1",
     "@types/fs-extra": "^9.0.13",
+    "@types/jest": "^29.2.4",
     "@types/node": "^18.11.10",
     "@types/pug": "^2.0.6",
     "@typescript-eslint/parser": "^5.45.1",
     "chokidar": "^3.5.3",
+    "cli-progress": "^3.11.2",
+    "colors": "^1.4.0",
     "fs-extra": "^11.1.0",
     "jsdoc": "^4.0.0",
     "jsdoc-parse": "^6.2.0",
@@ -31,16 +36,16 @@
     "parse-options": "^1.0.6",
     "pug": "^3.0.2",
     "rimraf": "^3.0.2",
+    "showdown": "^2.1.0",
     "styla": "^2.0.9",
-    "typescript": "^4.9.3",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.9.4",
     "typescript-parser": "^2.6.1",
     "webpack": "^5.75.0"
   },
-  "devDependencies": {
-    "jest": "^26.6.3"
-  },
   "scripts": {
-    "test": "node ./node_modules/.bin/jest"
+    "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register 'test/**/*.test.ts'"
   },
   "author": {
     "name": "teniryte",
@@ -56,5 +61,11 @@
   },
   "bin": {
     "nestdoc": "./bin/nestdoc"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.4",
+    "@types/mocha": "^10.0.1",
+    "chai": "^4.3.7",
+    "mocha": "^10.1.0"
   }
 }

@@ -3,26 +3,33 @@ import { resolve } from 'path';
 import { File } from './files/file';
 import { Module } from './module';
 import { render } from './renderer';
+import * as colors from 'colors/safe';
 
 export class Project extends Module {
   output: string;
   options: any;
   logo: string;
   favicon: string;
+  items: any = {};
 
   constructor(root: string, parent: any, options?: any) {
     super(root, parent);
     this.output = options.output;
     this.options = options;
-    this.logo =
-      options.logo || 'https://cdn.cort.one/images/logo/nestdoc/logo.png';
-    this.favicon =
-      options.favicon || 'https://cdn.cort.one/images/logo/nestdoc/favicon.png';
+    this.logo = options.logo;
+    this.favicon = options.favicon;
   }
 
   async generate(): Promise<void> {
+    console.info(
+      colors.dim(`Building docs project for root «${this.root}»...`)
+    );
     await this.build();
     await render(this);
+  }
+
+  register(item) {
+    this.items[item.id] = item;
   }
 
   getMenu(): any {
@@ -50,5 +57,20 @@ export class Project extends Module {
       ...super.toJSON(),
       logo: this.logo,
     };
+  }
+
+  getPagesCount() {
+    let count = 0;
+    this.modules.forEach(module => {
+      count++;
+      count += module.services.length + 1;
+      count += module.controllers.length + 1;
+      count += module.dto.length + 1;
+      count += module.types.length + 1;
+      count += module.guards.length + 1;
+      count += module.middlewares.length + 1;
+      count += module.entities.length + 1;
+    });
+    return count;
   }
 }

@@ -17,6 +17,7 @@ export class Linked implements NamedInterface {
   }
 
   getLinkId() {
+    if (!this.parent) return this.getName();
     return this.parent.getName() + '-' + this.getName();
   }
 

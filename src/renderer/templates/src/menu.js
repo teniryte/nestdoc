@@ -65,21 +65,23 @@ function setEvents() {
 }
 
 function highlightCurrentPage() {
-  const moduleName = location.pathname.split('/').pop().split('-')[0];
-  const entityName = location.pathname
-    .split('/')
-    .pop()
-    .split('-')[1]
-    .split('.html')[0];
-  const $module = document.querySelector(
-    `.main-menu-module[data-name="${moduleName}"]`
-  );
-  const $item = $module.querySelector(
-    `.main-menu-section__items__item[data-name="${entityName}"]`
-  );
-  const $section = $item.parentElement.parentElement;
-  $section.dataset.expanded = 'expanded';
-  $item.dataset.active = 'active';
+  try {
+    const moduleName = location.pathname.split('/').pop().split('-')[0];
+    const entityName = location.pathname
+      .split('/')
+      .pop()
+      .split('-')[1]
+      .split('.html')[0];
+    const $module = document.querySelector(
+      `.main-menu-module[data-name="${moduleName}"]`
+    );
+    const $item = $module.querySelector(
+      `.main-menu-section__items__item[data-name="${entityName}"]`
+    );
+    const $section = $item.parentElement.parentElement;
+    $section.dataset.expanded = 'expanded';
+    $item.dataset.active = 'active';
+  } catch (err) {}
 }
 
 function getMenuElements() {

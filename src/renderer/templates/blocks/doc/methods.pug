@@ -2,10 +2,10 @@ mixin docMethod(item, data)
   a(name=item.name)
   .doc-method(data-deprecated=item.comment.deprecated ? 'deprecated' : '')
     if item.decorators && item.decorators.length
-      .doc-method__decorators
+      .doc-method__decorators.decorators
         each dec in item.decorators
-          .doc-method__decorators__decorator
-            strong= dec.name
+          .doc-method__decorators__decorator.decorator
+            strong= '@' + dec.name
             span (
               each val in dec.args.split(',')
                 if parent.getNodeLink(val)

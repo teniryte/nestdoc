@@ -2,9 +2,9 @@ mixin docProperty(item)
   a(name=item.name)
   .doc-property
     if item.decorators && item.decorators.length
-      .doc-property__decorators
+      .doc-property__decorators.decorators
         each dec in item.decorators
-          .doc-property__decorators__decorator
+          .doc-property__decorators__decorator.decorator
             strong= '@' + dec.name
             span (
               each val in dec.args.split(',')

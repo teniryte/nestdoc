@@ -1,0 +1,15 @@
+.main-menu-article
+  .main-menu-article__header
+    a(href=base)
+      i
+        +icon('fa-solid fa-book')
+      strong #{name} Documentation
+  .main-menu-article__content.main-menu-links
+    a(href=base)
+      i
+        +icon('fa-solid fa-house')
+      strong Home
+    a(href=base + '/modules.html')
+      i
+        +icon('fa-solid fa-earth-americas')
+      strong Overview

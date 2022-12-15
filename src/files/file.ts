@@ -126,8 +126,9 @@ export class File extends Linked implements NamedInterface {
     const comments: Comment[] = [];
     const reg = /\/\*\*([\s\S]+?)\*\//gim;
     let results;
+    const source = this.source.replace(/§/gim, '@');
 
-    while ((results = reg.exec(this.source)) !== null) {
+    while ((results = reg.exec(source)) !== null) {
       const item = new Comment(results[1], results.index, reg.lastIndex, this);
       comments.push(item);
     }
@@ -282,7 +283,7 @@ function removeComments(string) {
   //Takes a string of code, not an actual function.
   return string
     .replace(/\/\*([\s\S]*?)\*\/|\/\/.*/g, txt => {
-      return txt.replace(/\@/gim, 'D');
+      return txt.replace(/\@/gim, '§');
     })
     .trim(); //Strip comments
 }

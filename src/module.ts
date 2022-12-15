@@ -1,5 +1,5 @@
 import { existsSync, readdirSync, statSync } from 'fs';
-import { basename, relative, resolve } from 'path';
+import { basename, dirname, relative, resolve } from 'path';
 import { ControllerFile } from './files/controller.file';
 import { DecoratorFile } from './files/decorator.file';
 import { DtoFile } from './files/dto.file';
@@ -69,7 +69,10 @@ export class Module extends Linked {
       if (!statSync(this.resolve(file)).isDirectory()) return;
       this.list(file).forEach(sub => {
         if (!sub.endsWith(`.${type}.ts`)) return;
-        filenames.push(this.resolve(file, sub));
+        const filename = this.resolve(file, sub);
+        const files = readdirSync(dirname(filename));
+        if (files.find(file => file.endsWith('.module.ts'))) return;
+        filenames.push(filename);
       });
     });
     this.handledFiles = [...this.handledFiles, ...filenames];
@@ -142,6 +145,10 @@ export class Module extends Linked {
     return files;
   }
 
+  getFile() {
+    return this.file;
+  }
+
   getUnhandledFiles(): any {
     return this.getAllFiles()
       .filter(file => !this.handledFiles.includes(file))
@@ -202,5 +209,267 @@ export class Module extends Linked {
     } catch (err) {
       return '';
     }
+  }
+
+  getTree() {
+    let items: any = [
+      {
+        key: this.uid,
+        name: this.file.children[0].name,
+        type: 'module',
+        linkId: this.linkId,
+      },
+    ];
+    const module = this;
+    if (this.parent) {
+      items = [
+        ...items,
+        {
+          key: module.uid,
+          name: module.getName(),
+          parent: this.uid,
+          type: 'module',
+          linkId: module.linkId,
+          description: 'This is description!',
+        },
+      ];
+      if (module.services.length) {
+        items = [
+          ...items,
+          {
+            key: module.uid + 1000,
+            name: 'Services',
+            parent: module.uid,
+            type: 'service',
+            linkId:
+              module.parent.getName() + '-' + module.getName() + '-services',
+            description: 'This is description!',
+          },
+          ...module.services.map(service => ({
+            key: service.uid,
+            name: service.getName(),
+            parent: module.uid + 1000,
+            type: 'service',
+            linkId: service.linkId,
+            description: 'This is description!',
+          })),
+        ];
+      }
+      if (module.controllers.length) {
+        items = [
+          ...items,
+          {
+            key: module.uid + 10001,
+            name: 'Controllers',
+            parent: module.uid,
+            type: 'controller',
+            linkId:
+              module.parent.getName() + '-' + module.getName() + '-controllers',
+            description: 'This is description!',
+          },
+          ...module.controllers.map(controller => ({
+            key: controller.uid,
+            name: controller.getName(),
+            parent: module.uid + 10001,
+            type: 'controller',
+            linkId: controller.linkId,
+            description: 'This is description!',
+          })),
+        ];
+      }
+      if (module.entities.length) {
+        items = [
+          ...items,
+          {
+            key: module.uid + 100002,
+            name: 'Entities',
+            parent: module.uid,
+            type: 'entity',
+            linkId:
+              module.parent.getName() + '-' + module.getName() + '-entities',
+            description: 'This is description!',
+          },
+          ...module.entities.map(entity => ({
+            key: entity.uid,
+            name: entity.getName(),
+            parent: module.uid + 100002,
+            type: 'entity',
+            linkId: entity.linkId,
+            description: 'This is description!',
+          })),
+        ];
+      }
+      if (module.dto.length) {
+        items = [
+          ...items,
+          {
+            key: module.uid + 1000003,
+            name: "Dto's",
+            parent: module.uid,
+            type: 'dto',
+            linkId: module.parent.getName() + '-' + module.getName() + '-dto',
+            description: 'This is description!',
+          },
+          ...module.dto.map(dto => ({
+            key: dto.uid,
+            name: dto.getName(),
+            parent: module.uid + 1000003,
+            type: 'dto',
+            linkId: dto.linkId,
+            description: 'This is description!',
+          })),
+        ];
+      }
+      if (module.types.length) {
+        items = [
+          ...items,
+          {
+            key: module.uid + 10000004,
+            name: 'Types',
+            parent: module.uid,
+            type: 'type',
+            linkId: module.parent.getName() + '-' + module.getName() + '-dto',
+            description: 'This is description!',
+          },
+          ...module.types.map(type => ({
+            key: type.uid,
+            name: type.getName(),
+            parent: module.uid + 10000004,
+            type: 'type',
+            linkId: type.linkId,
+            description: 'This is description!',
+          })),
+        ];
+      }
+      return items;
+    }
+    this.modules.forEach(module => {
+      // console.log('SERVICES', {
+      //   file: module.file.filename,
+      //   name: module.getName(),
+      //   module: module.name,
+      //   services: this.services.length,
+      // });
+      items = [
+        ...items,
+        {
+          key: module.uid,
+          name: module.getName(),
+          parent: this.uid,
+          type: 'module',
+          linkId: module.linkId,
+          description: 'This is description!',
+        },
+      ];
+      if (module.services.length) {
+        items = [
+          ...items,
+          {
+            key: module.uid + 1000,
+            name: 'Services',
+            parent: module.uid,
+            type: 'service',
+            linkId:
+              module.parent.getName() + '-' + module.getName() + '-services',
+            description: 'This is description!',
+          },
+          ...module.services.map(service => ({
+            key: service.uid,
+            name: service.getName(),
+            parent: module.uid + 1000,
+            type: 'service',
+            linkId: service.linkId,
+            description: 'This is description!',
+          })),
+        ];
+      }
+      if (module.controllers.length) {
+        items = [
+          ...items,
+          {
+            key: module.uid + 10001,
+            name: 'Controllers',
+            parent: module.uid,
+            type: 'controller',
+            linkId:
+              module.parent.getName() + '-' + module.getName() + '-controllers',
+            description: 'This is description!',
+          },
+          ...module.controllers.map(controller => ({
+            key: controller.uid,
+            name: controller.getName(),
+            parent: module.uid + 10001,
+            type: 'controller',
+            linkId: controller.linkId,
+            description: 'This is description!',
+          })),
+        ];
+      }
+      if (module.entities.length) {
+        items = [
+          ...items,
+          {
+            key: module.uid + 100002,
+            name: 'Entities',
+            parent: module.uid,
+            type: 'entity',
+            linkId:
+              module.parent.getName() + '-' + module.getName() + '-entities',
+            description: 'This is description!',
+          },
+          ...module.entities.map(entity => ({
+            key: entity.uid,
+            name: entity.getName(),
+            parent: module.uid + 100002,
+            type: 'entity',
+            linkId: entity.linkId,
+            description: 'This is description!',
+          })),
+        ];
+      }
+      if (module.dto.length) {
+        items = [
+          ...items,
+          {
+            key: module.uid + 1000003,
+            name: "Dto's",
+            parent: module.uid,
+            type: 'dto',
+            linkId: module.parent.getName() + '-' + module.getName() + '-dto',
+            description: 'This is description!',
+          },
+          ...module.dto.map(dto => ({
+            key: dto.uid,
+            name: dto.getName(),
+            parent: module.uid + 1000003,
+            type: 'dto',
+            linkId: dto.linkId,
+            description: 'This is description!',
+          })),
+        ];
+      }
+      if (module.types.length) {
+        items = [
+          ...items,
+          {
+            key: module.uid + 10000004,
+            name: 'Types',
+            parent: module.uid,
+            type: 'type',
+            linkId: module.parent.getName() + '-' + module.getName() + '-dto',
+            description: 'This is description!',
+          },
+          ...module.types.map(type => ({
+            key: type.uid,
+            name: type.getName(),
+            parent: module.uid + 10000004,
+            type: 'type',
+            linkId: type.linkId,
+            description: 'This is description!',
+          })),
+        ];
+      }
+    });
+    return items;
   }
 }
