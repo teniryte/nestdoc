@@ -3,9 +3,9 @@
 
 const parseOptions = require('parse-options');
 const path = require('path');
-const { Project } = require('../dist/src/project');
+const { Project } = require('./project');
 const chokidar = require('chokidar');
-const nestdoc = require('../dist/src/index');
+const nestdoc = require('./index');
 
 const options = parseOptions(
   // Example pattern.
