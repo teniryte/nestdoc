@@ -1,6 +1,6 @@
 {
   "name": "nestdoc",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "files": [
@@ -44,7 +44,10 @@
     "webpack": "^5.75.0"
   },
   "scripts": {
-    "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register 'test/**/*.test.ts'"
+    "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register 'test/**/*.test.ts'",
+    "build": "yarn clean && tsc && yarn copy-files",
+    "clean": "rm -rf ./dist",
+    "copy-files": "cp -r ./assets/ ./dist/assets"
   },
   "author": {
     "name": "teniryte",

@@ -16,12 +16,12 @@ export const render = async project => {
   const OUTPUT_DIR = project.output;
   const CSS_DIR = resolve(project.output, 'css');
   const CSS_BUILD = resolve(CSS_DIR, 'app.css');
-  const APP_DIR = resolve(__dirname, '../../../assets/templates/src');
+  const APP_DIR = resolve(__dirname, '../../assets/templates/src');
   const JS_DIR = resolve(project.output, 'js');
-  const IMAGES_SOURCE_DIR = resolve(__dirname, '../../../assets/images');
+  const IMAGES_SOURCE_DIR = resolve(__dirname, '../../assets/images');
   const IMAGES_DIR = resolve(project.output, 'images');
-  const TEMPLATES_DIR = resolve(__dirname, '../../../assets/templates');
-  const STYLES_DIR = resolve(__dirname, '../../../assets/styles');
+  const TEMPLATES_DIR = resolve(__dirname, '../../assets/templates');
+  const STYLES_DIR = resolve(__dirname, '../../assets/styles');
   const STYLES_INDEX = resolve(STYLES_DIR, 'index.styl');
   const HTML_DIR = project.output;
   const MODULES_DIR = resolve(HTML_DIR, 'modules');
@@ -32,7 +32,7 @@ export const render = async project => {
   const TYPES_DIR = resolve(HTML_DIR, 'types');
   const GUARDS_DIR = resolve(HTML_DIR, 'guards');
   const MIDDLEWARES_DIR = resolve(HTML_DIR, 'middlewares');
-  const LIB_DIR = resolve(__dirname, '../../../assets/templates/lib');
+  const LIB_DIR = resolve(__dirname, '../../assets/templates/lib');
   const OUTPUT_LIB_DIR = resolve(project.output, 'lib');
   const README_FILENAME = existsSync(resolve(project.root, 'README.md'))
     ? resolve(project.root, 'README.md')
