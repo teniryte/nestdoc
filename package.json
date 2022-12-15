@@ -1,6 +1,6 @@
 {
   "name": "nestdoc",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "files": [
@@ -47,7 +47,7 @@
     "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register 'test/**/*.test.ts'",
     "build": "yarn clean && tsc && yarn copy-files",
     "clean": "rm -rf ./dist",
-    "copy-files": "cp -r ./assets/ ./dist/assets"
+    "copy-files": "cp -r ./assets/ ./dist/assets; cp -r ./bin ./dist/bin"
   },
   "author": {
     "name": "teniryte",
@@ -62,7 +62,7 @@
     "registry": "https://registry.npmjs.org"
   },
   "bin": {
-    "nestdoc": "./bin/nestdoc"
+    "nestdoc": "./dist/bin/nestdoc"
   },
   "devDependencies": {
     "@types/chai": "^4.3.4",
