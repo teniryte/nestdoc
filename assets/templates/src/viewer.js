@@ -80,6 +80,14 @@ async function showLinkViewer(module, type, name, ev) {
   document.body.appendChild(elem);
   elem.style.top = `${ev.pageY + 20}px`;
   elem.style.left = `${ev.pageX + 20}px`;
+  setTimeout(() => {
+    const y = ev.clientY;
+    const height = elem.offsetHeight;
+    const windowHeight = window.innerHeight;
+    if (y + height < windowHeight) return;
+    const diff = windowHeight - (y + height);
+    elem.style.top = ev.pageY + diff - 30 + 'px';
+  }, 0);
 }
 
 function hideLinkViewer() {
@@ -106,6 +114,9 @@ export const init = () => {
     const name = parts[2].split('-')[1].split('.')[0];
     elem.addEventListener('mouseenter', ev => {
       showLinkViewer(module, type, name, ev);
+    });
+    elem.addEventListener('mouseleave', ev => {
+      hideLinkViewer();
     });
     elem.addEventListener('mousemove', ev => {
       ev.stopPropagation();
