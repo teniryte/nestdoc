@@ -1,0 +1,56 @@
+$border-color = #ECEFF1;
+
+.link-viewer
+  position: absolute;
+  background: #fff;
+  // border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  color: #455A64;
+  width: 700px;
+
+  header
+    font-size: 1.1em;
+
+    strong
+      font-weight: 500;
+
+  &__description
+    background: #fff;
+    border-radius: 3px;
+    padding: 7px 10px;
+    // border: 1px solid #ECEFF1;
+    border: 2px solid $border-color;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+  &__section
+    margin-bottom: 20px;
+    margin-top: 20px;
+
+    &__header
+      font-weight: 500;
+      margin-bottom: 15px;
+
+    &__items
+      display: flex;
+      flex-wrap: wrap;
+      font-size: 0.9em;
+
+      &__item
+        display: flex;
+        margin-right: 5px;
+        margin-bottom: 5px;
+        background: lighten(#ECEFF1, 50%);
+        padding: 7px 10px;
+        border-radius: 4px;
+
+        strong
+          font-weight: 500;
+
+        em
+          font-style: normal;
+
+  .link-viewer-property
+    display: flex;

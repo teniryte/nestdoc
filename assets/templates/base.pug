@@ -28,5 +28,7 @@ html(lang="en")
       .content
         +breadcrumbs(breadcrumbs)
         block content
+    script.
+      window.BASE_URL = '#{base}';
     script(src=base + "/js/app.bundle.js")
     script!= treeJson

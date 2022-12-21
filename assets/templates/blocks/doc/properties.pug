@@ -10,7 +10,7 @@ mixin docProperty(item)
               each val in dec.args.split(',')
                 - val = formatDecoratorArgs(val)
                 if parent.getNodeLink(val)
-                  a(href=base + parent.getNodeLink(val))= val
+                  a(href=base + parent.getNodeLink(val), data-node-link=parent.getNodeLink(val))= val
                 else
                   strong= val
             span )
@@ -19,12 +19,12 @@ mixin docProperty(item)
       .doc-property__header__type
         strong
           if parent.getNodeLink(item.type)
-            a(href=base + parent.getNodeLink(item.type))= item.type
+            a(href=base + parent.getNodeLink(item.type), data-node-link=parent.getNodeLink(item.type))= item.type
           else
             strong= item.type
         if item.generic
           if parent.getNodeLink(item.generic)
-            a(href= base + parent.getNodeLink(item.generic))= '<' + item.generic + '>'
+            a(href= base + parent.getNodeLink(item.generic), data-node-link=parent.getNodeLink(item.generic))= '<' + item.generic + '>'
           else
             span= '<' + item.generic + '>'
     if item.comment.description

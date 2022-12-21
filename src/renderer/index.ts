@@ -15,6 +15,7 @@ import { inspect } from 'util';
 export const render = async project => {
   const OUTPUT_DIR = project.output;
   const CSS_DIR = resolve(project.output, 'css');
+  const JSON_DIR = resolve(project.output, 'json');
   const CSS_BUILD = resolve(CSS_DIR, 'app.css');
   const APP_DIR = resolve(__dirname, '../../assets/templates/src');
   const JS_DIR = resolve(project.output, 'js');
@@ -106,6 +107,15 @@ export const render = async project => {
       });
   }
 
+  function renderJson(moduleName, typeName, name, data) {
+    const filename = resolve(
+      JSON_DIR,
+      `${moduleName}-${typeName}-${name}.json`
+    );
+    const content = JSON.stringify(data, null, 2);
+    writeFileSync(filename, content);
+  }
+
   async function copyImages() {
     copySync(IMAGES_SOURCE_DIR, IMAGES_DIR);
   }
@@ -195,6 +205,7 @@ export const render = async project => {
       GUARDS_DIR,
       MIDDLEWARES_DIR,
       OUTPUT_LIB_DIR,
+      JSON_DIR,
     ].forEach(dir => {
       if (!existsSync(dir)) mkdirSync(dir);
     });
@@ -393,6 +404,7 @@ export const render = async project => {
           },
           service.linkId
         );
+        renderJson(mod.name, 'service', data.name, data);
       });
       module.controllers.forEach(controller => {
         const data = controller.toJSON();
@@ -424,6 +436,7 @@ export const render = async project => {
           },
           controller.linkId
         );
+        renderJson(mod.name, 'controller', data.name, data);
       });
       module.entities.forEach(entity => {
         const data = entity.toJSON();
@@ -455,6 +468,7 @@ export const render = async project => {
           },
           entity.linkId
         );
+        renderJson(mod.name, 'entity', data.name, data);
       });
       module.dto.forEach(dto => {
         const data = dto.toJSON();
@@ -482,6 +496,7 @@ export const render = async project => {
           },
           dto.linkId
         );
+        renderJson(mod.name, 'dto', data.name, data);
       });
       module.types.forEach(type => {
         const data = type.toJSON();
@@ -510,6 +525,7 @@ export const render = async project => {
           },
           type.linkId
         );
+        renderJson(mod.name, 'type', data.name, data);
       });
       module.guards.forEach(guard => {
         const data = guard.toJSON();
@@ -541,6 +557,7 @@ export const render = async project => {
           },
           guard.linkId
         );
+        renderJson(mod.name, 'guard', data.name, data);
       });
       module.middlewares.forEach(middleware => {
         const data = middleware.toJSON();
@@ -572,6 +589,7 @@ export const render = async project => {
           },
           middleware.linkId
         );
+        renderJson(mod.name, 'middleware', data.name, data);
       });
     });
   }

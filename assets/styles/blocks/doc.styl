@@ -1,3 +1,5 @@
+$border-color = #ECEFF1;
+
 .doc-info
   color: #37474F;
 
@@ -6,7 +8,7 @@
     border-radius: 5px;
     padding: 20px 30px;
     // border: 1px solid #ECEFF1;
-    border-left: 5px solid #ECEFF1;
+    border: 5px solid $border-color;
 
 .doc-header
   display: flex;
@@ -23,10 +25,11 @@
     margin-left: 10px;
 
 .doc-property
-  background: lighten(#ECEFF1, 50%);
+  // background: lighten(#ECEFF1, 50%);
   padding: 15px 20px;
   border-radius: 5px;
   margin-bottom: 10px;
+  border-left: 3px solid lighten(#ECEFF1, 50%);
 
   &__decorators
     margin-bottom: 10px;
@@ -55,10 +58,11 @@
     padding: 15px;
 
 .doc-method
-  background: lighten(#ECEFF1, 50%);
+  // background: lighten(#ECEFF1, 50%);
   padding: 15px 20px;
   border-radius: 5px;
   margin-bottom: 10px;
+  border: 3px solid $border-color;
 
   // &[data-deprecated="deprecated"]
   //   opacity: 0.7;

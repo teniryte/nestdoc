@@ -9,7 +9,7 @@ mixin docMethod(item, data)
             span (
               each val in dec.args.split(',')
                 if parent.getNodeLink(val)
-                  a(href=base + parent.getNodeLink(val))= val
+                  a(href=base + parent.getNodeLink(val), data-node-link=parent.getNodeLink(val))= val
                 else
                   strong= val
             span )
@@ -38,12 +38,12 @@ mixin docMethod(item, data)
                   .doc-method__args__arg__type
                     strong
                       if parent.getNodeLink(arg.type)
-                        a(href=base + parent.getNodeLink(arg.type))= arg.type
+                        a(href=base + parent.getNodeLink(arg.type), data-node-link=parent.getNodeLink(arg.type))= arg.type
                       else
                         strong= arg.type
                     if arg.generic
                       if parent.getNodeLink(arg.generic)
-                        a(href= base + parent.getNodeLink(arg.generic))= '<' + arg.generic + '>'
+                        a(href= base + parent.getNodeLink(arg.generic), data-node-link=parent.getNodeLink(arg.generic))= '<' + arg.generic + '>'
                       else
                         span= '<' + arg.generic + '>'
         if item.args.length
@@ -58,12 +58,12 @@ mixin docMethod(item, data)
                 .doc-method__return__type
                   strong
                     if parent.getNodeLink(item.type)
-                      a(href=base + parent.getNodeLink(item.type))= item.type
+                      a(href=base + parent.getNodeLink(item.type), data-node-link=parent.getNodeLink(item.type))= item.type
                     else
                       strong= item.type
                   if item.generic
                     if parent.getNodeLink(item.generic)
-                      a(href= base + parent.getNodeLink(item.generic))= '<' + item.generic + '>'
+                      a(href= base + parent.getNodeLink(item.generic), data-node-link=parent.getNodeLink(item.generic))= '<' + item.generic + '>'
                     else
                       span= '<' + item.generic + '>'
     if item.comment.description
