@@ -1,11 +1,14 @@
 {
   "name": "nestdoc",
-  "version": "0.0.41",
+  "version": "0.0.42",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "files": [
     "/dist",
     "/scripts",
+    "/bin",
+    "/src",
+    "/assets",
     "/bin"
   ],
   "description": "Nest.JS documentation generator",
