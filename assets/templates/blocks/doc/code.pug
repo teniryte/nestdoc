@@ -1,3 +1,4 @@
 mixin code(code, line)
-  pre(style="width: 100%; white-space: wrap;").line-numbers.code
-    code(class="language-typescript")!= code
+  //- pre(style="width: 100%; white-space: wrap;", data-source="typescript").line-numbers.code
+  //-   code!= code
+  .source(data-line=line)!= code

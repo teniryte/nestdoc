@@ -6,6 +6,7 @@ import * as code from './code';
 import * as modulesDiagram from './modules-diagram';
 import * as toggle from './toggle';
 import * as viewer from './viewer';
+import * as source from './source';
 
 document.addEventListener('DOMContentLoaded', () => {
   menu.init();
@@ -14,4 +15,5 @@ document.addEventListener('DOMContentLoaded', () => {
   modulesDiagram.init();
   viewer.init();
   // toggle.init();
+  source.init();
 });

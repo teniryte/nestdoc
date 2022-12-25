@@ -1,4 +1,6 @@
-export class Decorator {
+import { Node } from './nodes/node';
+
+export class Decorator extends Node {
   type = 'decorator';
   name: string;
   args: string;
@@ -8,6 +10,7 @@ export class Decorator {
   id: string;
 
   constructor(data: any, parent: any) {
+    super(data, parent);
     this.name = data.name;
     this.args = data.args;
     this.start = data.start;
@@ -20,8 +23,11 @@ export class Decorator {
     return this.parent.getImportPath(this.name);
   }
 
+  sgdgsd() {}
+
   toJSON() {
     return {
+      ...super.toJSON(),
       name: this.name,
       args: this.args.replace(/«/gim, '(').replace(/»/gim, ')'),
       start: this.start,

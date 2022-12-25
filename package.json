@@ -1,6 +1,6 @@
 {
   "name": "nestdoc",
-  "version": "0.0.25",
+  "version": "0.0.26",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "files": [
@@ -23,6 +23,7 @@
     "@types/colors": "^1.2.1",
     "@types/fs-extra": "^9.0.13",
     "@types/node": "^18.11.10",
+    "@types/prismjs": "^1.26.0",
     "@types/pug": "^2.0.6",
     "@typescript-eslint/parser": "^5.45.1",
     "chokidar": "^3.5.3",
@@ -33,6 +34,7 @@
     "jsdoc-parse": "^6.2.0",
     "lodash": "^4.17.21",
     "parse-options": "^1.0.6",
+    "prismjs": "^1.29.0",
     "pug": "^3.0.2",
     "rimraf": "^3.0.2",
     "showdown": "^2.1.0",
@@ -47,7 +49,8 @@
     "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register 'test/**/*.test.ts'",
     "build": "yarn clean && tsc && yarn copy-files",
     "clean": "rm -rf ./dist",
-    "copy-files": "cp -r ./assets/ ./dist/assets"
+    "copy-files": "cp -r ./assets/ ./dist/assets",
+    "dev": "nodemon --exec \"bash\" ./scripts/build --watch './src/*' -e js,pug,ts,css,styl,png"
   },
   "author": {
     "name": "teniryte",
@@ -62,12 +65,13 @@
     "registry": "https://registry.npmjs.org"
   },
   "bin": {
-    "nestdoc": "./dist/src/nestdoc.ts"
+    "nestdoc": "./scripts/build"
   },
   "devDependencies": {
     "@types/chai": "^4.3.4",
     "@types/mocha": "^10.0.1",
     "chai": "^4.3.7",
     "mocha": "^10.1.0"
-  }
+  },
+  "nodemonConfig": {}
 }

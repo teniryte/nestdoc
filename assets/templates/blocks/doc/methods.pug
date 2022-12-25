@@ -1,6 +1,8 @@
 mixin docMethod(item, data)
   a(name=item.name)
   .doc-method(data-deprecated=item.comment.deprecated ? 'deprecated' : '')
+    if item.comment.description
+      .doc-method__description= item.comment.description
     if item.decorators && item.decorators.length
       .doc-method__decorators.decorators
         each dec in item.decorators
@@ -66,8 +68,6 @@ mixin docMethod(item, data)
                       a(href= base + parent.getNodeLink(item.generic), data-node-link=parent.getNodeLink(item.generic))= '<' + item.generic + '>'
                     else
                       span= '<' + item.generic + '>'
-    if item.comment.description
-      .doc-method__description= item.comment.description
     if item.comment.example
       +docExample(item.comment.example)
     if item.comment.throws

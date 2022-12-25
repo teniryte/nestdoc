@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+ROOT=$PWD
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+PACKAGE_DIR="$SCRIPT_DIR/.."
+cd "$PACKAGE_DIR" || exit
+
+yarn clean && tsc && yarn copy-files
+
+cd "$ROOT" || exit
+
+args=("$@")
+
+SCRIPT_FILE="$PACKAGE_DIR/dist/src/nestdoc.js"
+
+node "$SCRIPT_FILE" "$args"

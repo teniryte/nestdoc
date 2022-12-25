@@ -1,8 +1,11 @@
-import parseOptions from 'parse-options';
-import { resolve } from 'path';
-import { Project } from './project';
-import * as chokidar from 'chokidar';
-import * as nestdoc from './index';
+#!/usr/bin/env node
+'use strict';
+
+const parseOptions = require('parse-options');
+const path = require('path');
+const { Project } = require('../dist/src/project');
+const chokidar = require('chokidar');
+const nestdoc = require('../dist/src/nestdoc');
 
 const options = parseOptions(
   // Example pattern.
@@ -12,8 +15,8 @@ const options = parseOptions(
   `root $output|o @watch|w $base|b $logo|l $favicon|fav|f`,
   process.argv,
   {
-    root: val => resolve(process.cwd(), val || 'src'),
-    output: val => resolve(process.cwd(), val || 'documentation'),
+    root: val => path.resolve(process.cwd(), val || 'src'),
+    output: val => path.resolve(process.cwd(), val || 'documentation'),
     watch: val => val,
     base: val => val || '/',
     logo: val => val,

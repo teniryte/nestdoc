@@ -28,6 +28,7 @@ export class Node extends Linked implements NamedInterface {
   id: string;
   generic = null;
   uid: number;
+  line: number;
 
   static createNode(data: any, parent: any): Node {
     const ClassNode = require('./class.node').ClassNode;
@@ -73,6 +74,11 @@ export class Node extends Linked implements NamedInterface {
     }
   }
 
+  getLine() {
+    const file = this.getFile();
+    return file.source.slice(0, this.start).split('\n').length;
+  }
+
   constructor(data: any, parent: any) {
     super(parent);
     this.name = data.name;
@@ -88,6 +94,9 @@ export class Node extends Linked implements NamedInterface {
     this.decorators = data.decorators;
     this.id = this.getId();
     this.uid = uniqueId();
+    this.line = this.getLine();
+
+    console.log('LINE', this.line);
   }
 
   toJSON() {
@@ -98,6 +107,7 @@ export class Node extends Linked implements NamedInterface {
       type: this.type,
       generic: this.generic,
       id: this.getId(),
+      line: this.line,
     };
   }
 
