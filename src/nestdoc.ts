@@ -1,8 +1,9 @@
-import parseOptions from 'parse-options';
 import { resolve } from 'path';
 import { Project } from './project';
 import * as chokidar from 'chokidar';
 import * as nestdoc from './index';
+
+const parseOptions = require('parse-options');
 
 const options = parseOptions(
   // Example pattern.

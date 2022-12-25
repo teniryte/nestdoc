@@ -1,6 +1,6 @@
 {
   "name": "nestdoc",
-  "version": "0.0.28",
+  "version": "0.0.29",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "files": [
@@ -67,7 +67,7 @@
     "registry": "https://registry.npmjs.org"
   },
   "bin": {
-    "nestdoc": "./scripts/build"
+    "nestdoc": "./scripts/run"
   },
   "devDependencies": {
     "@types/chai": "^4.3.4",

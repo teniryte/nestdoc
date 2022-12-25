@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 
 ROOT=$PWD
-SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
-PACKAGE_DIR="$SCRIPT_DIR/.."
+BIN_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+BIN_FILE=$(realpath "$BIN_DIR/build")
+PACKAGE_DIR=$(realpath "$BIN_FILE/../..")
 cd "$PACKAGE_DIR" || exit
-
-# yarn clean && tsc && yarn copy-files
-
+yarn clean && tsc && yarn copy-files
+cd "$ROOT" || exit
+args=("$@")
+node "$PACKAGE_DIR/dist/src/nestdoc.js" "$args"
 # cd "$ROOT" || exit
 
 # args=("$@")
