@@ -1,6 +1,6 @@
 {
   "name": "nestdoc",
-  "version": "0.0.44",
+  "version": "0.0.45",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "files": [
@@ -9,7 +9,10 @@
     "/bin",
     "/src",
     "/assets",
-    "/bin"
+    "/bin",
+    "/LICENSE",
+    "/README.md",
+    "/tsconfig.json"
   ],
   "description": "Nest.JS documentation generator",
   "keywords": [
