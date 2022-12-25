@@ -5,7 +5,9 @@ BIN_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 BIN_FILE=$(realpath "$BIN_DIR/build")
 PACKAGE_DIR=$(realpath "$BIN_FILE/../..")
 cd "$PACKAGE_DIR" || exit
-sudo yarn clean && tsc && sudo yarn copy-files
+sudo yarn clean
+tsc
+sudo yarn copy-files
 cd "$ROOT" || exit
 # args=("$@")
 # node "$PACKAGE_DIR/dist/src/nestdoc.js" "$args"
