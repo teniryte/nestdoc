@@ -10,4 +10,4 @@ SCRIPTS_DIR=$(dirname "$BIN_FILE")
 PACKAGE_DIR=$(dirname "$SCRIPTS_DIR")
 echo "PACKAGE_DIR: $PACKAGE_DIR"
 
-# nodemon --exec "/usr/bin/bash" "$PACKAGE_DIR/scripts/build" --watch "$PACKAGE_DIR/src/*" --watch "$ROOT/src" -e js,pug,ts,css,styl,png
+nodemon --exec "bash" "$PACKAGE_DIR/scripts/build" --watch "$PACKAGE_DIR/src/*" --watch "$ROOT/src/*" -e js,pug,ts,css,styl,png
