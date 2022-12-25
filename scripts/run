@@ -6,7 +6,7 @@ BIN_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 echo "BIN_DIR: $BIN_DIR"
 BIN_FILE=$(realpath "$BIN_DIR/nestdoc")
 echo "BIN_FILE: $BIN_FILE"
-PACKAGE_DIR=$(realpath "$BIN_FILE")
+PACKAGE_DIR=$(realpath "$BIN_FILE/..")
 echo "PACKAGE_DIR: $PACKAGE_DIR"
 
 # nodemon --exec "/usr/bin/bash" "$PACKAGE_DIR/scripts/build" --watch "$PACKAGE_DIR/src/*" --watch "$ROOT/src" -e js,pug,ts,css,styl,png
