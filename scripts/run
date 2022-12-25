@@ -6,4 +6,4 @@ BIN_FILE=$(realpath "$BIN_DIR/nestdoc")
 SCRIPTS_DIR=$(dirname "$BIN_FILE")
 PACKAGE_DIR=$(dirname "$SCRIPTS_DIR")
 
-nodemon --exec "bash" "$PACKAGE_DIR/scripts/build" --watch "$PACKAGE_DIR/src/*" -e js,pug,ts,css,styl,png
+nodemon --exec "bash $SCRIPTS_DIR/build" --watch "$PACKAGE_DIR/src/*" --watch "$PACKAGE_DIR/assets/*" --watch "$ROOT/src/*" -e js,pug,ts,css,styl,png,svg -- "$*"

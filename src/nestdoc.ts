@@ -5,20 +5,26 @@ import * as nestdoc from './index';
 
 const parseOptions = require('parse-options');
 
+const args = process.argv.slice(1);
+
 const options = parseOptions(
   // Example pattern.
   // Contains two commands (command="copy", file="test.txt")
   // and three parameters (boolean minimize=true, number limit=5
   // and string exclude="node_modules")
-  `root $output|o @watch|w $base|b $logo|l $favicon|fav|f`,
-  process.argv,
+  `path $input|i $output|o @watch|w $base|b $logo|l $favicon|fav|f`,
+  args,
   {
-    root: val => resolve(process.cwd(), val || 'src'),
+    input: val => resolve(process.cwd(), val || 'src'),
+    path: val => resolve(process.cwd(), val),
     output: val => resolve(process.cwd(), val || 'documentation'),
     watch: val => val,
-    base: val => val || '/',
+    base: val => {
+      return val || '/';
+    },
     logo: val => val,
     favicon: val => val,
+    root: val => resolve(process.cwd(), val || 'src'),
   }
 );
 

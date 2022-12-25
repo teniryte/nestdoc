@@ -111,6 +111,7 @@ export class Module extends Linked {
   async buildModuleFile(): Promise<any> {
     const files = this.list();
     const moduleFile = files.find(file => file.endsWith('.module.ts'));
+    if (!moduleFile) return;
     this.handledFiles.push(this.resolve(moduleFile));
     this.file = new ModuleFile(this.resolve(moduleFile), this);
   }
@@ -167,7 +168,9 @@ export class Module extends Linked {
     await this.buildType('decorator', 'decorators', DecoratorFile);
     await this.buildType('middleware', 'middlewares', MiddlewareFile);
     await this.buildOtherFiles();
-    this.data = await this.file.parseModule();
+    if (this.file) {
+      this.data = await this.file.parseModule();
+    }
     for (const module of this.modules) {
       await module.build();
     }
@@ -212,6 +215,7 @@ export class Module extends Linked {
   }
 
   getTree() {
+    if (!this.file) return;
     let items: any = [
       {
         key: this.uid,

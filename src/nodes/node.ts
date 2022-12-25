@@ -95,8 +95,6 @@ export class Node extends Linked implements NamedInterface {
     this.id = this.getId();
     this.uid = uniqueId();
     this.line = this.getLine();
-
-    console.log('LINE', this.line);
   }
 
   toJSON() {
