@@ -4,7 +4,7 @@ import { resolve } from 'path';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import * as rimraf from 'rimraf';
 import * as webpack from 'webpack';
-import { createConfig } from '../../assets/webpack';
+import { createConfig } from './webpack';
 import { copySync } from 'fs-extra';
 import * as colors from 'colors/safe';
 import * as cliProgress from 'cli-progress';
