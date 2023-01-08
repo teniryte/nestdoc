@@ -1,6 +1,6 @@
 {
   "name": "nestdoc",
-  "version": "0.0.49",
+  "version": "0.0.50",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "files": [
@@ -58,7 +58,7 @@
     "build": "yarn clean && tsc && yarn copy-files",
     "clean": "rm -rf ./dist",
     "copy-files": "cp -r ./assets/ ./dist/assets",
-    "dev": "nodemon --exec \"bash \" ./scripts/build --watch './src/*' --watch './assets/*' --watch './lib' -e js,pug,ts,css,styl,png"
+    "dev": "nodemon --exec \"bash \" ./scripts/run --watch './src/*' --watch './assets/*' --watch './lib' -e js,pug,ts,css,styl,png"
   },
   "author": {
     "name": "teniryte",

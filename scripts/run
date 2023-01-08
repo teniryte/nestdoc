@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 
-ROOT=$PWD
 BIN_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
-BIN_FILE=$(realpath "$BIN_DIR/nestdoc")
-SCRIPTS_DIR=$(dirname "$BIN_FILE")
-PACKAGE_DIR=$(dirname "$SCRIPTS_DIR")
+PACKAGE_DIR=$(dirname "$BIN_DIR")
 
-nodemon --exec "bash $SCRIPTS_DIR/build" --watch "$PACKAGE_DIR/src/*" --watch "$PACKAGE_DIR/assets/*" --watch "$ROOT/src/*" -e js,pug,ts,css,styl,png,svg -- "$*"
+bash "$BIN_DIR/build"
+
+cd "$*" || exit
+
+nodemon --exec "node $PACKAGE_DIR/dist/src/nestdoc -i src -o documentation --base '/api/docs' --logo 'https://leaderport.indep.pro/images/logo/logo-doc.svg'" --watch "./src/*" -e ts
+
+# nodemon --exec "bash $SCRIPTS_DIR/build" --watch "$PACKAGE_DIR/src/*" --watch "$PACKAGE_DIR/assets/*" --watch "$ROOT/src/*" -e js,pug,ts,css,styl,png,svg -- "$*"

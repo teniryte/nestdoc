@@ -16,7 +16,7 @@ const options = parseOptions(
   args,
   {
     input: val => resolve(process.cwd(), val || 'src'),
-    path: val => resolve(process.cwd(), val),
+    path: val => resolve(process.cwd(), val || 'src'),
     output: val => resolve(process.cwd(), val || 'documentation'),
     watch: val => val,
     base: val => {

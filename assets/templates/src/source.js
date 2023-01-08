@@ -7,5 +7,5 @@ export const init = async () => {
 function highlight(elem) {
   const source = elem.innerHTML;
   const language = elem.dataset.source;
-  console.log('HIGHLIGHT', { source, language });
+  const type = elem.dataset.source;
 }
