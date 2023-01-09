@@ -1,6 +1,10 @@
 mixin docProperty(item)
   a(name=item.name)
   .doc-property
+    .doc-property__line(data-toline=item.line)
+      i
+        +icon('fa-solid fa-code')
+      span Line #{item.line}
     if item.decorators && item.decorators.length
       .doc-property__decorators.decorators
         each dec in item.decorators

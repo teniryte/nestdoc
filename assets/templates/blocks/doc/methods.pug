@@ -1,6 +1,10 @@
 mixin docMethod(item, data)
   a(name=item.name)
   .doc-method(data-deprecated=item.comment.deprecated ? 'deprecated' : '')
+    .doc-method__line(data-toline=item.line)
+      i
+        +icon('fa-solid fa-code')
+      span Line #{item.line}
     if item.comment.description
       .doc-method__description= item.comment.description
     if item.decorators && item.decorators.length
@@ -22,7 +26,7 @@ mixin docMethod(item, data)
             .doc-method__header__deprecated
               i
                 +icon('fa-solid fa-triangle-exclamation')
-              span Deprecated
+              span deprecated
           if item.isAsync
             .doc-method__header__async async
           .doc-method__header__name= item.name === data.name ? 'constructor' : item.name

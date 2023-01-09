@@ -88,6 +88,14 @@ async function showLinkViewer(module, type, name, ev) {
     const diff = windowHeight - (y + height);
     elem.style.top = ev.pageY + diff - 30 + 'px';
   }, 0);
+  setTimeout(() => {
+    const x = ev.clientX;
+    const width = elem.offsetWidth;
+    const windowWidth = window.innerWidth;
+    if (x + width < windowWidth) return;
+    const diff = windowWidth - (x + width);
+    elem.style.left = ev.pageX + diff - 30 + 'px';
+  }, 0);
 }
 
 function hideLinkViewer() {

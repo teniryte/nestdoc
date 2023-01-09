@@ -1,5 +1,6 @@
-mixin code(code, line)
+mixin code(code, line, language="typescript")
   //- pre(style="width: 100%; white-space: wrap;", data-source="typescript").line-numbers.code
-  //-   code!= code
-  .pre
-    code.source(data-line=line)!= code
+  //-   code(class="language-" + language)!= code
+  .source(data-line=line, data-language=language)!= code
+  //- .pre(className="line-numbers")
+  //-   code.source(data-line=line, data-language="typescript")!= code
