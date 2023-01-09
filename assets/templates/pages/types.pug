@@ -2,3 +2,5 @@ extends ../base
 
 block content
   +header('fa-solid fa-folder-tree', module.name, module.id, 'Types of module')
+
+  +items(module.types, 'fa-solid fa-folder-tree', 'types')

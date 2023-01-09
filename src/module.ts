@@ -198,6 +198,13 @@ export class Module extends Linked {
       name: this.name,
       id: this.file.id,
       linkId: this.linkId,
+      services: this.services.map(service => service.toJSON()),
+      controllers: this.controllers.map(controller => controller.toJSON()),
+      entities: this.entities.map(entity => entity.toJSON()),
+      dto: this.dto.map(dto => dto.toJSON()),
+      types: this.types.map(type => type.toJSON()),
+      guards: this.guards.map(guard => guard.toJSON()),
+      middlewares: this.middlewares.map(middleware => middleware.toJSON()),
     };
   }
 
@@ -332,7 +339,7 @@ export class Module extends Linked {
             name: 'Types',
             parent: module.uid,
             type: 'type',
-            linkId: module.parent.getName() + '-' + module.getName() + '-dto',
+            linkId: module.parent.getName() + '-' + module.getName() + '-types',
             description: 'This is description!',
           },
           ...module.types.map(type => ({

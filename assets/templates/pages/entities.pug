@@ -2,3 +2,5 @@ extends ../base
 
 block content
   +header('fa-solid fa-database', module.name, module.id, 'Entities of module')
+
+  +items(module.entities, 'fa-solid fa-database', 'entities')

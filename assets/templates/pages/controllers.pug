@@ -2,3 +2,5 @@ extends ../base
 
 block content
   +header('fa-solid fa-link', module.name, module.id, 'Controllers of module')
+
+  +items(module.controllers, 'fa-solid fa-link', 'controllers')

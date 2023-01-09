@@ -1,0 +1,40 @@
+.items
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
+
+  .item
+    background: #ECEFF1;
+    background: #fff;
+    border: 1px solid #ECEFF1;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    color: #455A64;
+    display: block;
+    transition: 0.3s background;
+
+    &:hover
+      background: lighten(#ECEFF1, 50%);
+
+    &__name
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+      font-size: 1.1em;
+
+      i
+        color: #B0BEC5;
+        margin-right: 10px;
+
+    &__file
+      font-size: 0.9em;
+      margin-bottom: 10px;
+      margin-left: 35px;
+      color: #B0BEC5;
+
+    &__description
+      color: #607D8B;
+      font-weight: 400;

@@ -1,0 +1,8 @@
+mixin item(data, icon, category)
+  a(href=base + "/" + category + "/" + data.linkId + ".html").item
+    .item__name
+      i
+        +icon(icon)
+      span= data.name
+    .item__file= data.id
+    .item__description= data.main.comment.description

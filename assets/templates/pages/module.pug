@@ -3,4 +3,81 @@ extend ../base
 block content
   +header('fa-solid fa-box-open', module.name, module.id, 'Module')
 
-  #myDiagramDiv(style="width:100%; height:600px; background-color: #fff;")
+  //- #myDiagramDiv(style="width:100%; height:600px; background-color: #fff;")
+
+  if module.services.length
+    .module-section
+
+      .module-section__header
+        i
+          +icon('fa-sharp fa-solid fa-person-digging')
+        span Services
+
+      .module-section__items
+        +items(module.services, 'fa-sharp fa-solid fa-person-digging', 'services')
+
+  if module.controllers.length
+    .module-section
+
+      .module-section__header
+        i
+          +icon('fa-solid fa-link')
+        span Controllers
+
+      .module-section__items
+        +items(module.controllers, 'fa-solid fa-link', 'controllers')
+
+  if module.entities.length
+    .module-section
+
+      .module-section__header
+        i
+          +icon('fa-solid fa-database')
+        span Entities
+
+      .module-section__items
+        +items(module.entities, 'fa-solid fa-database', 'entities')
+
+  if module.dto.length
+    .module-section
+
+      .module-section__header
+        i
+          +icon('fa-solid fa-server')
+        span Dto
+
+      .module-section__items
+        +items(module.dto, 'fa-solid fa-server', 'dto')
+
+  if module.types.length
+    .module-section
+
+      .module-section__header
+        i
+          +icon('fa-solid fa-folder-tree')
+        span Types
+
+      .module-section__items
+        +items(module.types, 'fa-solid fa-folder-tree', 'types')
+
+  if module.guards.length
+    .module-section
+
+      .module-section__header
+        i
+          +icon('fa-solid fa-shield-halved')
+        span Guards
+
+      .module-section__items
+        +items(module.guards, 'fa-solid fa-shield-halved', 'guards')
+
+  if module.middlewares.length
+    .module-section
+
+      .module-section__header
+        i
+          +icon('fa-solid fa-spider')
+        span Middlewares
+
+      .module-section__items
+        +items(module.middlewares, 'fa-solid fa-spider', 'middlewares')

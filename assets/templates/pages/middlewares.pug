@@ -2,3 +2,5 @@ extends ../base
 
 block content
   +header('fa-solid fa-spider', module.name, module.id, 'Middlewares of module')
+
+  +items(module.middlewares, 'fa-solid fa-spider', 'middlewares')
