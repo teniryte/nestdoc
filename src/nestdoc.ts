@@ -31,7 +31,5 @@ const options = parseOptions(
 if (options.watch) {
   nestdoc.watch(options);
 } else {
-  nestdoc.generate(options, () => {
-    process.exit(0);
-  });
+  nestdoc.generate(options);
 }

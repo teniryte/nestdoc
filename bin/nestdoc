@@ -6,13 +6,15 @@ const path = require('path');
 const { Project } = require('../dist/src/project');
 const chokidar = require('chokidar');
 const nestdoc = require('../dist/src/index');
+const express = require('express');
+const serveStatic = require('serve-static');
 
 const options = parseOptions(
   // Example pattern.
   // Contains two commands (command="copy", file="test.txt")
   // and three parameters (boolean minimize=true, number limit=5
   // and string exclude="node_modules")
-  `root $output|o @watch|w $base|b $logo|l $favicon|fav|f`,
+  `root $output|o @watch|w $base|b $logo|l $favicon|fav|f @serve|s #port|p $host|h`,
   process.argv,
   {
     root: val => path.resolve(process.cwd(), val || 'src'),
@@ -21,6 +23,9 @@ const options = parseOptions(
     base: val => val || '/',
     logo: val => val,
     favicon: val => val,
+    serve: val => val,
+    port: val => val || 8080,
+    host: val => val || 'localhost',
   }
 );
 
@@ -28,6 +33,15 @@ if (options.watch) {
   nestdoc.watch(options);
 } else {
   nestdoc.generate(options, () => {
-    process.exit(0);
+    if (!options.serve) process.exit(0);
   });
+}
+
+if (options.serve) {
+  const app = express();
+  app.use(options.base, serveStatic(options.output));
+  app.listen(options.port);
+  console.log(
+    `Documentation started at http://${options.host}:${options.port}${options.base}...`
+  );
 }

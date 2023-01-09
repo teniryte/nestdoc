@@ -8,9 +8,10 @@ export function generate(options, cb = () => {}) {
   project
     .generate()
     .then(() => {
-      console.log('Docs generated!');
-      cb();
-      process.exit(0);
+      setTimeout(() => {
+        console.log('\n\nDocs generated!');
+        cb();
+      }, 500);
     })
     .catch(err => console.log(err));
 }

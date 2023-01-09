@@ -26,8 +26,28 @@ export const tags = [
     },
   },
   {
-    name: 'return',
-    re: /\@return([\s\S]+?)/gim,
+    name: 'param',
+    re: /\@param([\s\S]+?)/gim,
+    parse(lines, comment, data) {
+      const line = lines[0].trim();
+      const type = line.split(' ')[0].slice(1, -1);
+      const name = line.split(' ')[1];
+      const description = line.split(' ').slice(2).join(' ');
+      return {
+        args: [
+          ...(data.args || []),
+          {
+            name,
+            type,
+            description: description,
+          },
+        ],
+      };
+    },
+  },
+  {
+    name: 'returns',
+    re: /\@returns([\s\S]+?)/gim,
     parse(lines, comment) {
       return {
         returns: lines.join('\n'),
